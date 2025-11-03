@@ -1,3 +1,5 @@
+require("toon.compat")
+
 local M = {}
 
 local encode_module = require("toon.encode")
