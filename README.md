@@ -1,6 +1,8 @@
 # toon.nvim
 
 A Neovim plugin for TOON (Token-Oriented Object Notation), a compact, human-readable serialization format designed for passing structured data to Large Language Models with significantly reduced token usage.
+![CleanShot 2025-11-03 at 12 53 00](https://github.com/user-attachments/assets/54611334-3643-4c5d-b75f-62203ede3c4e)
+
 
 ## Overview
 
