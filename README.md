@@ -1,10 +1,21 @@
 # toon.nvim
 
-A Neovim plugin for encoding and decoding TOON (Table/Object Notation) format.
+A Neovim plugin for TOON (Token-Oriented Object Notation), a compact, human-readable serialization format designed for passing structured data to Large Language Models with significantly reduced token usage.
 
 ## Overview
 
-TOON is a human-readable serialization format for Lua tables that supports:
+TOON is the official format specified at [toon-format/spec](https://github.com/toon-format/spec) (v1.3). It's intended for LLM input, not output, and excels at uniform arrays of objects with identical fields.
+
+TOON supports:
+- **Token-efficient:** typically 30–60% fewer tokens than JSON
+- **LLM-friendly guardrails:** explicit lengths and fields enable validation
+- **Minimal syntax:** removes redundant punctuation (braces, brackets, most quotes)
+- **Indentation-based structure:** like YAML, uses whitespace instead of braces
+- **Tabular arrays:** declare keys once, stream data as rows
+
+For the reference implementation and benchmarks, see [toon-format/toon](https://github.com/toon-format/toon).
+
+This plugin provides Neovim integration for encoding Lua tables to TOON and decoding TOON back to Lua tables, with support for:
 - YAML-like structure for objects
 - Multiple array formats (inline, tabular, list)
 - Configurable delimiters (comma, pipe, tab)
@@ -146,6 +157,12 @@ require("toon").setup({
   default_length_marker = false
 })
 ```
+
+## TOON Specification
+
+This plugin implements the official TOON format as specified in [toon-format/spec](https://github.com/toon-format/spec).
+
+For the reference TypeScript/JavaScript implementation, benchmarks, and CLI tools, visit [toon-format/toon](https://github.com/toon-format/toon).
 
 ## License
 
