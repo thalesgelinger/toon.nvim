@@ -1,13 +1,8 @@
-local dkjson = require("dkjson")
 local toon = require("toon")
-print("toon.encode:", toon.encode)
 
 describe("Toon encode", function()
     local function decode_json(str)
-        local data = dkjson.decode(str, 1, dkjson.null)
-        -- For encode tests, keep dkjson.null as is (don't replace with nil)
-        -- This preserves null values in the input for testing
-        return data
+        return vim.json.decode(str)
     end
 
     local function load_fixture(filename)
@@ -24,7 +19,8 @@ describe("Toon encode", function()
     local function run_fixture_tests(fixture)
         for _, test in ipairs(fixture.tests) do
             it(test.name, function()
-                local result = toon.encode(test.input)
+                local options = test.options
+                local result = toon.encode(test.input, options)
                 assert.are.equal(test.expected, result)
             end)
         end
@@ -51,3 +47,4 @@ describe("Toon encode", function()
         end)
     end
 end)
+

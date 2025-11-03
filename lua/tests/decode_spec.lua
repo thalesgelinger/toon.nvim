@@ -1,23 +1,8 @@
-local dkjson = require("dkjson")
 local toon = require("toon")
 
 describe("Toon decode", function()
     local function decode_json(str)
-        local data = dkjson.decode(str)
-        -- Replace dkjson.null with nil
-        local function replace_null(tbl)
-            for k, v in pairs(tbl) do
-                if v == dkjson.null then
-                    tbl[k] = nil
-                elseif type(v) == "table" then
-                    replace_null(v)
-                end
-            end
-        end
-        if type(data) == "table" then
-            replace_null(data)
-        end
-        return data
+        return vim.json.decode(str)
     end
 
     local function load_fixture(filename)
@@ -34,12 +19,18 @@ describe("Toon decode", function()
     local function run_fixture_tests(fixture)
         for _, test in ipairs(fixture.tests) do
             it(test.name, function()
-                local result = toon.decode(test.input)
-                -- Deep equality check for tables
-                if type(test.expected) == "table" then
-                    assert.are.same(test.expected, result)
+                local options = test.options
+                if test.shouldError then
+                    assert.has_error(function()
+                        toon.decode(test.input, options)
+                    end)
                 else
-                    assert.are.equal(test.expected, result)
+                    local result = toon.decode(test.input, options)
+                    if type(test.expected) == "table" then
+                        assert.are.same(test.expected, result)
+                    else
+                        assert.are.equal(test.expected, result)
+                    end
                 end
             end)
         end
