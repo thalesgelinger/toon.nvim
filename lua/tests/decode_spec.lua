@@ -21,7 +21,7 @@ describe("Toon decode", function()
     end
 
     local function load_fixture(filename)
-        local filepath = "tests/fixtures/decode/" .. filename
+        local filepath = "lua/tests/fixtures/decode/" .. filename
         local file = io.open(filepath, "r")
         if not file then
             error("Could not open fixture file: " .. filepath)
