@@ -37,14 +37,26 @@ require("toon").setup()
 
 ## Usage
 
-### Keybindings
+### Commands
 
-The plugin provides visual mode keybindings for encoding and decoding:
+The plugin provides user commands for encoding and decoding:
 
-- `<leader>te` - Encode selected text to TOON format
-- `<leader>td` - Decode selected TOON text to Lua table
+- `:ToonEncode` - Encode selected JSON lines to TOON format
+- `:ToonDecode` - Decode selected TOON lines to JSON
 
-These work in visual mode to replace the selected text with the encoded/decoded version.
+Use visual mode to select lines, then run the command with `:'<,'>ToonEncode` or `:'<,'>ToonDecode`. The selected lines will be replaced with the converted version.
+
+You can also set custom keybindings if preferred:
+
+```lua
+vim.keymap.set("v", "<leader>te", function()
+  vim.cmd("'<,'>ToonEncode")
+end, { desc = "Encode selection to TOON" })
+
+vim.keymap.set("v", "<leader>td", function()
+  vim.cmd("'<,'>ToonDecode")
+end, { desc = "Decode selection from TOON" })
+```
 
 ### Lua API
 
@@ -117,12 +129,12 @@ local encoded = toon.encode(data)
 -- Result: 'users:\n  - name: "Alice"\n    settings:\n      theme: "dark"\n      notifications: true\n  - name: "Bob"\n    settings:\n      theme: "light"\n      notifications: false'
 ```
 
-### Visual mode usage
-1. Select some text in visual mode
-2. Press `<leader>te` to encode it to TOON
-3. Press `<leader>td` to decode it from TOON
+### Command usage
+1. Select some lines in visual mode
+2. Run `:'<,'>ToonEncode` to encode JSON to TOON
+3. Run `:'<,'>ToonDecode` to decode TOON to JSON
 
-The selected text will be replaced with the converted version.
+The selected lines will be replaced with the converted version.
 
 ## Setup
 
